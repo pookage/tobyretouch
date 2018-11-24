@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { AppContext } from "Components/App/AppContext.js";
 import Mosiac from "Components/Mosaic/Mosaic.jsx";
+import shared from "Shared/shared.css";
 import s from "Components/App/App.css";
 
 export default class App extends Component {

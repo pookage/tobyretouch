@@ -41,7 +41,12 @@ function buildConfig(env, args){
 				devServer: {
 					contentBase: "./dist",
 					https: true
-				}
+				},
+				plugins: [
+					new HtmlWebpackPlugin({
+						template: `${src}/index.html`
+					})
+				]
 			};
 			break;
 	}
@@ -108,7 +113,8 @@ function buildConfig(env, args){
 				Assets: assets,
 				Components: `${src}/components`,
 				Modes: `${src}/components/modes`,
-				Utils: `${src}/utils`
+				Utils: `${src}/utils`,
+				Shared: `${src}/shared`
 			}
 		},
 

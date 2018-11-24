@@ -1,4 +1,28 @@
 .wrapper {
+	display: flex;
 	height: 100%;
 	width: 100%;
+	flex-wrap: wrap;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
+	.wrapper::after {
+		content: "";
+		display: block;
+		height: 100%;
+		width: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		pointer-events: none;
+		background-color: #fff;
+	}
+		.wrapper.focus::after {
+			opacity: 0.6;
+			transition: opacity 1s;
+		}
+		.wrapper.blur::after {
+			opacity: 0;
+			transition: opacity .3s;
+		}

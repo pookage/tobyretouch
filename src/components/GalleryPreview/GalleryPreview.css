@@ -1,0 +1,77 @@
+.wrapper {
+	font-size: 16.667vw;
+	position: relative;
+	z-index: 1;
+	transform: scale(1);	
+	box-shadow: 0 0 0 0 rgba(0,0,0,0);
+	transition: transform .3s, box-shadow .3s;
+}
+	.wrapper:hover{
+		transform: scale(1.05);
+		box-shadow: 0 0 0.6em rgba(0,0,0,1);
+		z-index: 3;
+	}
+	.wrapper.portrait {
+		flex: 1 0 0.85em;
+		height: 1.618em;
+		width: 1em;
+	}
+	.wrapper.landscape {
+		flex: 1 0 2em;
+		height: 1.618em;
+		width: 2em;
+	}
+		.container {
+			height: 100%;
+			width: 100%;
+			position: relative;
+			overflow: hidden;
+		}
+			.image {
+				display: block;
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+				object-position: center;
+				pointer-events: none;
+			}
+			.cover {
+				z-index: 1;
+			}
+		.extra {
+			display: block;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+			.extra .image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: -1;
+				transform: translate(0, 0);
+				opacity: 0;
+				transition: transform .6s, opacity .6s;
+			}
+		.caption {
+			font-size: 1rem;
+			display: flex;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			justify-content: center;
+			align-items: center;
+			transition: opacity .3s;
+		}
+			.collapsed .caption {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.expanded .caption {
+
+				opacity: 1;
+			}

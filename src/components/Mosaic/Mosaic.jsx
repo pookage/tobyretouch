@@ -1,10 +1,35 @@
 import React, { Component } from "react";
 import { AppContext } from "Components/App/AppContext.js";
+import { MosaicContext } from "Components/Mosaic/MosaicContext.js";
 import GalleryPreview from "Components/GalleryPreview/GalleryPreview.jsx";
 import s from "Components/Mosaic/Mosaic.css";
 
 class MosaicComp extends Component {
 
+	//LIFECYCLE JAZZ
+	//----------------------------------
+	constructor(...args){
+		super(...args);
+
+		this.toggleOverlay = this.toggleOverlay.bind(this);
+
+		this.state = {
+			showOverlay: false
+		};
+	}//constructor
+
+
+
+	//UTILS
+	//-----------------------------------
+	toggleOverlay(showOverlay){
+		console.log({ showOverlay });
+		this.setState({ showOverlay });
+	}//toggleOverlay
+
+
+	//RENDER FUNCTIONS
+	//-----------------------------------
 	renderGalleryPreview(data, index){
 		const {
 			photographer,
@@ -21,7 +46,7 @@ class MosaicComp extends Component {
 				photographer={photographer}
 				name={name}
 				images={images}
-				key={id}
+				key={`${id}__${index}`}
 			/>
 		);
 	}//renderGalleryPreview
@@ -31,10 +56,21 @@ class MosaicComp extends Component {
 			galleries
 		} = this.props;
 
+		const {
+			showOverlay
+		} = this.state;
+
+		const data = {
+			toggleOverlay: this.toggleOverlay,
+			showOverlay
+		};
+
 		return(
-			<div className={s.wrapper}>
-				{galleries.map(this.renderGalleryPreview)}
-			</div>
+			<MosaicContext.Provider value={data}>
+				<div className={`${s.wrapper} ${showOverlay ? s.focus : s.blur}`}>
+					{galleries.map(this.renderGalleryPreview)}
+				</div>
+			</MosaicContext.Provider>
 		)
 	}
 
