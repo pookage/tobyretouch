@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { AppContext } from "Components/App/AppContext.js";
+import shared from "Shared/shared.css";
 import s from "Components/Gallery/Gallery.css";
 
+
+/*
+
+	ARROW ICONS :
+		- https://www.flaticon.com/authors/lucy-g
+
+*/
 class GalleryComponent extends Component {
 
 	//LIFECYCLE JAZZ
@@ -22,6 +30,8 @@ class GalleryComponent extends Component {
 		this.renderImage      = this.renderImage.bind(this);
 		this.updateResolution = this.updateResolution.bind(this);
 		this.setActiveIndex   = this.setActiveIndex.bind(this);
+		this.hide             = this.hide.bind(this);
+		this.tryToClose       = this.tryToClose.bind(this);
 
 		//local variable for animationFrames
 		this.limitedLookup    = null;
@@ -71,6 +81,30 @@ class GalleryComponent extends Component {
 			this.setState({ resolution });
 		});
 	}//updateResolution
+	hide(){
+		this.setState({
+			visible: false
+		});
+	}//hide
+	tryToClose(event){
+		const {
+			propertyName,
+			target
+		} = event;
+
+		if(target == this.$wrapper && propertyName == "opacity"){
+			const {
+				opacity
+			} = getComputedStyle(this.$wrapper);
+
+			console.log(opacity);
+
+			if(opacity == 0){
+				console.log("toggle the gallery to hello")
+				this.props.toggleGallery(null)
+			}
+		}
+	}//tryToClose
 
 
 	//UTILS
@@ -150,14 +184,19 @@ class GalleryComponent extends Component {
 		const images = imageData.map(this.renderImage);
 
 		return(
-			<main className={`${s.wrapper} ${visible ? s.visible : s.hidden}`}>
+			<main 
+				className={`${s.wrapper} ${visible ? s.visible : s.hidden}`}
+				onTransitionEnd={this.tryToClose}
+				ref={ref => this.$wrapper = ref}>
 				<header className={s.header}>
-					<h1 className={`${s.title} ${s.shoot}`}>
-						{name}
-					</h1>
-					<h2 className={`${s.title} ${s.photographer}`}>
-						{photographer}
-					</h2>
+					<hgroup className={s.heading}>
+						<h1 className={`${shared.body} ${s.title} ${s.shoot}`}>
+							{name}
+						</h1>
+						<h2 className={`${shared.body} ${s.title} ${s.photographer}`}>
+							{photographer}
+						</h2>
+					</hgroup>
 					<nav className={s.controls}>
 						<button 
 							className={`${s.button} ${s.previous}`} 
@@ -177,7 +216,7 @@ class GalleryComponent extends Component {
 				<button 
 					className={`${s.button} ${s.close}`}
 					aria-label="Close Gallery"
-					onClick={toggleGallery.bind(true, null)}
+					onClick={this.hide}
 				/>
 			</main>
 		);

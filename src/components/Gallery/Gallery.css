@@ -18,32 +18,77 @@
 	pointer-events: all;
 }
 	.header {
+		font-size: 2vh;
 		display: flex;
+		padding: 0 0 1.618em 1.618em;
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		z-index: 2;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
+		justify-content: flex-start;
+		align-items: center;
+		color: #fff;
 	}
-		.title {}
-		.title.shoot {}
-		.title.photographer {}
+		.heading {
+			order: 2;
+			margin-left: 0.618em;
+		}
+			.title {
+				font-size: 1em;
+				display: inline-block;
+				vertical-align: top;
+				text-transform: uppercase;
+				opacity: 0.5;
+				transition: opacity .3s;
+			}
+			.title:hover {
+				opacity: 1;
+			}
+			.title.shoot {}
+				.title.shoot::after {
+					content: "/";
+					display: inline-block;
+					margin: 0 0.618em;
+				}
+			.title.photographer {}
 
-		.controls {}
+		.controls {
+			order: 1;
+		}
 			.button {
 				display: inline-block;
-				font-size: 5vh;
+				font-size: 1.618em;
 				height: 1em;
 				width: 1em;
 				padding: 0;
+				vertical-align: top;
+				background-color: transparent;
+				opacity: 0.5;
+				transition: opacity .3s;
 			}
+				.button::after {
+					content: "";
+					height: 100%;
+					width: 100%;
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: contain;
+				}
 			.button:hover {
+				opacity: 1;
 				cursor: pointer;
+				
 			}
-			.button.previous {}
-			.button.next {}
+			.button:focus {
+				outline: 0;
+			}
+			.button.previous {
+				background-image: url(Assets/arrow.svg);
+			}
+			.button.next {
+				background-image: url(Assets/arrow.svg);
+				transform: rotate(180deg);
+			}
 	.container {
 		display: flex;
 		height: 100%;
@@ -51,7 +96,8 @@
 		justify-content: flex-start;
 		align-items: center;
 		flex-wrap: nowrap;
-		overflow-x: auto;
+		/*overflow-x: auto;*/
+		overflow-x: hidden;
 		overflow-y: hidden;
 	}
 		.image {

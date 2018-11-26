@@ -30,6 +30,8 @@ export default class App extends Component {
 	//---------------------------
 	toggleGallery(id){
 		const activeGallery = id ? this.state.galleries.find(gallery => gallery.id == id) : null;
+
+		console.log({ activeGallery });
 		this.setState({ activeGallery })
 	}//toggleGallery
 
