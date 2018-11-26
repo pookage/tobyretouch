@@ -21,6 +21,7 @@ class GalleryComponent extends Component {
 		//scope binding
 		this.renderImage      = this.renderImage.bind(this);
 		this.updateResolution = this.updateResolution.bind(this);
+		this.setActiveIndex   = this.setActiveIndex.bind(this);
 
 		//local variable for animationFrames
 		this.limitedLookup    = null;
@@ -41,6 +42,21 @@ class GalleryComponent extends Component {
 			});
 		})
 	}//componentDidMount
+	componentDidUpdate(prevProps, prevState){
+		const {
+			activeIndex: prevActiveIndex
+		} = prevState;
+		const {
+			activeIndex
+		} = this.state;
+
+		if(activeIndex != prevActiveIndex){
+			const activeImage = this[`$image__${activeIndex}`];
+			activeImage.scrollIntoView({ 
+				behavior: "smooth"
+			});
+		}
+	}//componentDidUpdate
 	componentWillUnmount(){
 		cancelAnimationFrame(this.limitedLookup);
 		window.removeEventListener("resize", this.updateResolution)
@@ -69,6 +85,23 @@ class GalleryComponent extends Component {
 		else if (clientHeight > parseInt(medium)) return medium;
 		else                                      return small;
 	}//lookupResolution
+	setActiveIndex(increment){
+		const {
+			activeIndex
+		} = this.state;
+		const {
+			images
+		} = this.props;
+
+		let nextIndex = activeIndex + increment;
+		if(nextIndex == images.length) nextIndex = 0;
+		else if (nextIndex < 0)        nextIndex = (images.length - 1);
+
+		this.setState({
+			activeIndex: nextIndex
+		});
+	}//setActiveIndex
+
 
 	//RENDER FUNCTIONS
 	//-----------------------------------
@@ -85,14 +118,16 @@ class GalleryComponent extends Component {
 			activeIndex
 		} = this.state;
 
-		const filepath = `assets/${filename}__${resolution}.jpg`
+		const filepath = `assets/${filename}__${resolution}.jpg`;
+		const isActive = activeIndex == index;
 
 		return(
 			<img
-				className={s.image} 
+				className={`${s.image} ${isActive ? s.active : s.inactive}`} 
 				src={filepath} 
 				alt={description}
 				key={`gallery__${filename}__${index}`}
+				ref={ref => this[`$image__${index}`] = ref}
 			/>
 		);
 	}//renderImage
@@ -127,10 +162,12 @@ class GalleryComponent extends Component {
 						<button 
 							className={`${s.button} ${s.previous}`} 
 							aria-label="Previous Image."
+							onClick={this.setActiveIndex.bind(true, -1)}
 						/>
 						<button 
 							className={`${s.button} ${s.next}`} 
 							aria-label="Next Image."
+							onClick={this.setActiveIndex.bind(true, +1)}
 						/>
 					</nav>
 				</header>
