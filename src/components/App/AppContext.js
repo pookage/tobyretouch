@@ -252,5 +252,6 @@ export const AppContext = React.createContext({
 		medium: "1080",
 		large: "1440",
 		xl: "2160"
-	}
+	},
+	activeGallery: null
 });

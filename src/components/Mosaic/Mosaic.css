@@ -19,8 +19,8 @@
 		background-color: #fff;
 	}
 		.wrapper.focus::after {
-			opacity: 0.6;
-			transition: opacity 1s;
+			opacity: 0.4;
+			transition: opacity .6s;
 		}
 		.wrapper.blur::after {
 			opacity: 0;

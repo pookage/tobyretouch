@@ -5,7 +5,13 @@
 	box-sizing: border-box;
 }
 
-body {}
+body, .body {
+	font-family: "Montserrat", sans-serif;
+}
+h1, h2, h3,
+.h1, .h1, .h3 {
+	font-family: "Roboto", sans-serif;
+}
 
 #app {
 	height: 100%;

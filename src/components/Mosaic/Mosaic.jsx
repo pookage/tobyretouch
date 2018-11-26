@@ -23,7 +23,6 @@ class MosaicComp extends Component {
 	//UTILS
 	//-----------------------------------
 	toggleOverlay(showOverlay){
-		console.log({ showOverlay });
 		this.setState({ showOverlay });
 	}//toggleOverlay
 
@@ -42,7 +41,8 @@ class MosaicComp extends Component {
 		const safePhotographer = photographer.replace(/ /g,"_");
 
 		return(
-			<GalleryPreview 
+			<GalleryPreview
+				id={id} 
 				photographer={photographer}
 				name={name}
 				images={images}
@@ -53,6 +53,7 @@ class MosaicComp extends Component {
 	render(){
 
 		const {
+			//added with context consumers
 			galleries
 		} = this.props;
 
@@ -62,7 +63,7 @@ class MosaicComp extends Component {
 
 		const data = {
 			toggleOverlay: this.toggleOverlay,
-			showOverlay
+			overlayActive: showOverlay
 		};
 
 		return(

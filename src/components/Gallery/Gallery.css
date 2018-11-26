@@ -1,0 +1,66 @@
+.wrapper {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	transition: opacity .6s;
+}
+.wrapper.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+.wrapper.visible {
+	opacity: 1;
+	pointer-events: all;
+}
+	.header {
+		display: flex;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+		.title {}
+		.title.shoot {}
+		.title.photographer {}
+
+		.controls {}
+			.button {
+				display: inline-block;
+				font-size: 5vw;
+				height: 1em;
+				width: 1em;
+				padding: 0;
+			}
+			.button:hover {
+				cursor: pointer;
+			}
+			.button.previous {}
+			.button.next {}
+	.container {
+		display: flex;
+		height: 100%;
+		width: auto;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+		.image {
+			display: block;
+			height: 100%;
+			width: auto;
+			flex: 0 0 auto;
+		}
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: #fff;
+	}
